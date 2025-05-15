@@ -4,27 +4,28 @@ CFLAGS = -Wall -Wextra -std=c11 -g
 # Directories
 OBJDIR = build
 
-# Source files
-SRCS = tests/test_matrix.c dependencies/adts/helpers.c dependencies/adts/matrix.c
+# Targets
+TARGETS = $(OBJDIR)/test_matrix $(OBJDIR)/test_node
 
-# Generate object file names in build/ with same basename
-OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
+# Source files per target
+MATRIX_SRCS = tests/test_matrix.c dependencies/adts/helpers.c dependencies/adts/matrix.c
+NODE_SRCS   = tests/test_node.c dependencies/adts/helpers.c 
 
-TARGET = $(OBJDIR)/main
+# Object files per target
+MATRIX_OBJS = $(MATRIX_SRCS:%.c=$(OBJDIR)/%.o)
+NODE_OBJS   = $(NODE_SRCS:%.c=$(OBJDIR)/%.o)
 
 # Default rule
-all: $(TARGET)
+all: $(TARGETS)
 
-# Link all object files into the final binary
-$(TARGET): $(OBJS)
+# Linking rules
+$(OBJDIR)/test_matrix: $(MATRIX_OBJS) | $(OBJDIR)
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Compile .c to build/%.o
-$(OBJDIR)/%.c.o: %.c | $(OBJDIR)
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/test_node: $(NODE_OBJS) | $(OBJDIR)
+	$(CC) $(CFLAGS) -o $@ $^
 
-# Fallback pattern rule for general .c to build/*.o
+# Compile rule
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -33,7 +34,8 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
+# Clean rule
 clean:
-	rm -rf $(OBJDIR) $(TARGET)
+	rm -rf $(OBJDIR)
 
 .PHONY: all clean
