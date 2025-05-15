@@ -5,12 +5,12 @@ CFLAGS = -Wall -Wextra -std=c11 -g
 OBJDIR = build
 
 # Source files
-SRCS = test_matrix.c dependencies/adts/helpers.c dependencies/adts/matrix.c
+SRCS = tests/test_matrix.c dependencies/adts/helpers.c dependencies/adts/matrix.c
 
 # Generate object file names in build/ with same basename
 OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
-TARGET = main
+TARGET = $(OBJDIR)/main
 
 # Default rule
 all: $(TARGET)

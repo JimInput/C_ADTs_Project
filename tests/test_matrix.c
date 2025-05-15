@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <assert.h>
-#include "dependencies/headers/matrix.h"
+#include "../dependencies/headers/matrix.h"
 
 void test_init() {
     MATRIX* m = new_matrix(2,2);
