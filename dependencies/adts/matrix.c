@@ -64,8 +64,8 @@ void free_matrix(MATRIX* m) {
 void print_matrix(MATRIX* m, void (*f)(void*, char*, size_t)) {
     for (int i = 0; i < m->nrows; i++) {
         for (int j = 0; j < m->ncols; j++) {
-            char out[20];
-            f(m->data[i][j], out, MATRIX_BUFFER_SIZE);
+            char out[TEST_BUFFER_SIZE];
+            f(m->data[i][j], out, TEST_BUFFER_SIZE);
             printf("%3s ", out);
         }
         printf("\n");

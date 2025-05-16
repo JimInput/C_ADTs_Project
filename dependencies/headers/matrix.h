@@ -1,8 +1,6 @@
 #ifndef __MATRIX__H__
 #define __MATRIX__H__
 
-#include "helpers.h"
-
 // typedef Matrix
 typedef struct Matrix {
     int nrows;
